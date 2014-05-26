@@ -35,7 +35,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#ifdef unix
+#if (defined(__APPLE__) || defined(unix))
 # include <unistd.h>
 # include <utime.h>
 # include <sys/types.h>
@@ -81,7 +81,7 @@ uLong filetime(f, tmzip, dt)
   return ret;
 }
 #else
-#ifdef unix
+#if (defined(__APPLE__) || defined(unix))
 uLong filetime(f, tmzip, dt)
     char *f;               /* name of file to get info on */
     tm_zip *tmzip;         /* return value: access, modific. and creation times */

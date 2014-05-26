@@ -36,7 +36,8 @@
 #ifdef __APPLE__
     #include <sys/stat.h>
 #endif
-#ifdef unix
+
+#if (defined(__APPLE__) || defined(unix))
 # include <unistd.h>
 # include <utime.h>
 #else
@@ -86,7 +87,7 @@ void change_file_date(filename,dosdate,tmu_date)
   SetFileTime(hFile,&ftm,&ftLastAcc,&ftm);
   CloseHandle(hFile);
 #else
-#ifdef unix
+#if (defined(__APPLE__) || defined(unix))
   struct utimbuf ut;
   struct tm newdate;
   newdate.tm_sec = tmu_date.tm_sec;
@@ -117,7 +118,7 @@ int mymkdir(dirname)
 #ifdef _WIN32
     ret = _mkdir(dirname);
 #else
-#ifdef unix
+#if (defined(__APPLE__) || defined(unix))
     ret = mkdir (dirname,0775);
 #endif
 #endif
